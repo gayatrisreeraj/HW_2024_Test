@@ -7,10 +7,12 @@ public class DestroySpawn : MonoBehaviour
     public float des_time = 4.0f;
     public float sp_time = 2.5f;
     public float sp_dis = 9.0f;
+    Vector3 last;
     void Start()
     {
         current = Instantiate(platform);
         current.transform.position = new Vector3(0, 0, 0);
+        last = current.transform.position;
         StartCoroutine(routine1());
     }
     private IEnumerator routine1()
@@ -18,29 +20,33 @@ public class DestroySpawn : MonoBehaviour
         while (doofus.transform.position.y > 0)
         {
             yield return new WaitForSeconds(sp_time);
-            GameObject new_platform = Instantiate(platform);
             Vector3 pos = current.transform.position;
-            int side = Random.Range(0, 4);
             Vector3 dis = new Vector3(0, 0, 0);
-            if (side == 0)
+            do
             {
-                dis = Vector3.back * sp_dis;
-            }
-            else if (side == 1)
-            {
-                dis = Vector3.forward * sp_dis;
-            }
-            else if (side == 2)
-            {
-                dis = Vector3.right * sp_dis;
-            }
-            else if (side == 3)
-            {
-                dis = Vector3.left * sp_dis;
-            }
+                int side = Random.Range(0, 4);
+                if (side == 0)
+                {
+                    dis = Vector3.back * sp_dis;
+                }
+                else if (side == 1)
+                {
+                    dis = Vector3.forward * sp_dis;
+                }
+                else if (side == 2)
+                {
+                    dis = Vector3.right * sp_dis;
+                }
+                else if (side == 3)
+                {
+                    dis = Vector3.left * sp_dis;
+                }
+            } while ((pos + dis)==last);
+            GameObject new_platform = Instantiate(platform);
             new_platform.transform.position = pos + dis;
             new_platform.tag = "Platform";
             StartCoroutine(routine2(current, des_time));
+            last = new_platform.transform.position;
             current = new_platform;
         }
     }
