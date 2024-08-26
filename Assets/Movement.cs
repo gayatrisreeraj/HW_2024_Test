@@ -1,14 +1,9 @@
-using System.Collections;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
     public GameObject doofus;
     public float doofus_speed = 3.0f;
-    void Start()
-    {
-        
-    }
     void Update()
     {
         if (Input.GetKey(KeyCode.DownArrow))
