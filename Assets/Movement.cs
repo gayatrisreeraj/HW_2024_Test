@@ -3,9 +3,11 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public GameObject doofus;
+    // Player speed
     public float doofus_speed = 3.0f;
     void Update()
     {
+        // Move the object using arrow keys
         if (Input.GetKey(KeyCode.DownArrow))
         {
             transform.Translate(Vector3.back * doofus_speed * Time.deltaTime);
