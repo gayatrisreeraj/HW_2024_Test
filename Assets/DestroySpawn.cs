@@ -5,7 +5,7 @@ public class DestroySpawn : MonoBehaviour
 {
     public GameObject platform, current;
     public GameObject doofus;
-    public Text s, gameover;
+    public Text s, start, gameover;
     public float des_time = 4.0f; // Destroy time = 4
     public float sp_time = 2.5f; // Spawn time = 2.5
     public float sp_dis = 9.0f;
@@ -20,6 +20,9 @@ public class DestroySpawn : MonoBehaviour
     }
     private IEnumerator routine1()
     {
+        start.text = "Start!";
+        yield return new WaitForSeconds(3.0f);
+        start.text = "";
         while (doofus.transform.position.y>0)
         {
             yield return new WaitForSeconds(sp_time);
